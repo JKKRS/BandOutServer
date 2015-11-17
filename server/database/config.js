@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 // var privateVars = require('../../.env');
 
 // testing heroku
-console.log('MONGO_COMPOSE_URI', MONGO_COMPOSE_URI);
+console.log('MONGO_COMPOSE_URI', process.env.MONGO_COMPOSE_URI);
 var config = {
   mongoUrl: process.env.MONGO_COMPOSE_URI ||
     process.env.NODE_ENV === 'test' ? 'mongodb://localhost/bandout' : require('../../.env').MONGO_COMPOSE_URI
