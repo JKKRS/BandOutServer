@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 var mongoURI = process.env.MONGO_COMPOSE_URI;
-// var privateVars = require('../../.env');
 
-if (!mongoURI) {
+if (!mongoURI || process.env.NODE_ENV === 'test') {
   if (process.env.NODE_ENV === 'test') {
     mongoURI = 'mongodb://localhost/bandout';
   } else {
@@ -10,7 +9,6 @@ if (!mongoURI) {
   }
 }
 
-console.log('MONGO_COMPOSE_URI', mongoURI);
 var config = {
   mongoUrl: mongoURI
 };
