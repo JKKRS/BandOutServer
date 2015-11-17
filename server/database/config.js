@@ -1,11 +1,18 @@
 var mongoose = require('mongoose');
+var mongoURI = process.env.MONGO_COMPOSE_URI;
 // var privateVars = require('../../.env');
 
-// testing heroku
-console.log('MONGO_COMPOSE_URI', process.env.MONGO_COMPOSE_URI);
+if (!mongoURI) {
+  if (process.env.NODE_ENV === 'test') {
+    mongoURI = 'mongodb://localhost/bandout';
+  } else {
+    mongoURI = require('../../.env').MONGO_COMPOSE_URI;
+  }
+}
+
+console.log('MONGO_COMPOSE_URI', mongoURI);
 var config = {
-  mongoUrl: process.env.MONGO_COMPOSE_URI ||
-    process.env.NODE_ENV === 'test' ? 'mongodb://localhost/bandout' : require('../../.env').MONGO_COMPOSE_URI
+  mongoUrl: mongoURI
 };
 
 mongoose.connect(config.mongoUrl);
