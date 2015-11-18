@@ -15,6 +15,7 @@ var userSchema = new Schema({
   artist: Boolean,
   artist_info: {
     paypal_link: String,
+    website: String,
     upcoming_events: [{
       id: Number,
       title: String,
