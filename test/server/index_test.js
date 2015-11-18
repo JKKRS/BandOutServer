@@ -172,45 +172,48 @@ describe("The Server", function() {
         });
     });
 
-    it("doesn't return a single artist", function(done) {
-      return request(app)
-        .post('/apis/users')
-        .send(artist1)
-        .expect(201)
-        .then(function(response) {
-          var id = response.body.fbid
-          return request(app)
-            .get('/apis/users/' + id)
-            .expect(200)
-            .then(function(response) {
-              expect(response.body).to.be.empty;
-              done();
-            })
-        })
-        .catch(function(err) {
-          done(err);
-        });
-    });
+    // The following two tests assume the USERS enpoint doesn't return artists. This has been updated
+    // to return both non-artists and artists.
 
-    it("doesn't return any artists", function(done) {
-      return request(app)
-        .post('/apis/users')
-        .send(artist1)
-        .expect(201)
-        .then(function(response) {
-          var id = response.body.fbid
-          return request(app)
-            .get('/apis/users/' + id)
-            .expect(200)
-            .then(function(response) {
-              expect(response.body).to.be.empty;
-              done();
-            })
-        })
-        .catch(function(err) {
-          done(err);
-        });
-    });
+    // it("doesn't return a single artist", function(done) {
+    //   return request(app)
+    //     .post('/apis/users')
+    //     .send(artist1)
+    //     .expect(201)
+    //     .then(function(response) {
+    //       var id = response.body.fbid
+    //       return request(app)
+    //         .get('/apis/users/' + id)
+    //         .expect(200)
+    //         .then(function(response) {
+    //           expect(response.body).to.be.empty;
+    //           done();
+    //         })
+    //     })
+    //     .catch(function(err) {
+    //       done(err);
+    //     });
+    // });
+
+    // it("doesn't return any artists", function(done) {
+    //   return request(app)
+    //     .post('/apis/users')
+    //     .send(artist1)
+    //     .expect(201)
+    //     .then(function(response) {
+    //       var id = response.body.fbid
+    //       return request(app)
+    //         .get('/apis/users/' + id)
+    //         .expect(200)
+    //         .then(function(response) {
+    //           expect(response.body).to.be.empty;
+    //           done();
+    //         })
+    //     })
+    //     .catch(function(err) {
+    //       done(err);
+    //     });
+    // });
 
     it("should update the user which is entered", function(done) {
       return request(app)
