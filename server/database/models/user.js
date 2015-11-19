@@ -14,6 +14,8 @@ var userSchema = new Schema({
   twitter: String,
   artist: Boolean,
   artist_info: {
+    fbid: String,
+    name: String,
     paypal_link: String,
     website: String,
     upcoming_events: [{
@@ -23,6 +25,8 @@ var userSchema = new Schema({
       description: String,
       venue: {
         name: String,
+        address: String,
+        zip: String,
         city: String,
         country: String,
         latitude: Number,
