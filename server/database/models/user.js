@@ -25,6 +25,8 @@ var userSchema = new Schema({
       description: String,
       venue: {
         name: String,
+        address: String,
+        zip: String,
         city: String,
         country: String,
         latitude: Number,
