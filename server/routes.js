@@ -10,8 +10,9 @@ var artistsRouter = require('./apis/artists-api');
 var assetFolder   = Path.resolve(__dirname, '../client/');
 
 module.exports = function(app, jwtAuth) {
-  app.use('/apis/users', userRouter, jwtAuth);
-  app.use('/apis/artists', artistsRouter, jwtAuth);
+  app.use(jwtAuth);
+  app.use('/apis/users', userRouter);
+  app.use('/apis/artists', artistsRouter);
 
   // TEMPORARY
   app.get('/artists', artists.findAll);
