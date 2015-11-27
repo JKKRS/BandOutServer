@@ -21,7 +21,7 @@ var venueSchema = new Schema({
   zip: String,
   city: String,
   country: String,
-  loc: [locationSchema]
+  loc: locationSchema
 });
 
 var eventSchema = new Schema({
@@ -29,7 +29,7 @@ var eventSchema = new Schema({
   title: String,
   datetime: Date,
   description: String,
-  venue: [venueSchema]
+  venue: venueSchema
 });
 
 var artistSchema = new Schema({
@@ -52,8 +52,8 @@ var userSchema = new Schema({
   email: String,
   twitter: String,
   artist: Boolean,
-  artist_info: [artistSchema],
-  loc: [locationSchema]
+  artist_info: artistSchema,
+  loc: locationSchema
 });
 
 var User = mongoose.model('User', userSchema);
