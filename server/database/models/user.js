@@ -40,7 +40,7 @@ var userSchema = new Schema({
   twitter: String,
   artist: Boolean,
   artist_info: artistSchema,
-  live: Boolean,
+  live: { type: Boolean, default: false },
   location: {
     'type': {
       type: String,
