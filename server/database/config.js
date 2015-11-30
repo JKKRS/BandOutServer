@@ -6,6 +6,7 @@ if (!mongoURI || process.env.NODE_ENV === 'test') {
     mongoURI = 'mongodb://localhost/bandout';
   } else {
     mongoURI = require('../../.env').MONGO_COMPOSE_URI;
+    // mongoURI = 'mongodb://localhost/bandout';
   }
 }
 

@@ -1,27 +1,14 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-// Setup for Geolocation
-// ***** THIS IS OPPOSITE GOOGLE MAPS API *****
-// [ LONGITUDE , LATITUDE ]
-// type: default: 'Point'
-var locationSchema = new Schema({
-  pos: [Number],
-  type: {
-    type: String,
-    default: 'Point'
-  }
-});
-
-locationSchema.index({ 'pos' : '2dsphere'});
-
 var venueSchema = new Schema({
   name: String,
   address: String,
   zip: String,
   city: String,
   country: String,
-  loc: locationSchema
+  latitude: Number,
+  longitude: Number
 });
 
 var eventSchema = new Schema({
@@ -53,8 +40,21 @@ var userSchema = new Schema({
   twitter: String,
   artist: Boolean,
   artist_info: artistSchema,
-  loc: locationSchema
+  live: Boolean,
+  location: {
+    'type': {
+      type: String,
+      enum: 'Point',
+      default: 'Point'
+    },
+    coordinates: {
+      type: [Number],
+      default: [0,0]
+    }
+  }
 });
+
+userSchema.index({ location: '2dsphere' });
 
 var User = mongoose.model('User', userSchema);
 
