@@ -21,7 +21,7 @@ var eventSchema = new Schema({
 
 var artistSchema = new Schema({
   fbid: String,
-  name: String,
+  artist_name: String,
   paypal_link: String,
   website: String,
   upcoming_events: [eventSchema]
