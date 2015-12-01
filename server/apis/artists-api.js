@@ -37,4 +37,28 @@ ArtistsAPI.put('/:id', function(req, res) {
   });
 });
 
+ArtistsAPI.post('/live', function(req, res) {
+  var longitude, latitude, dist;
+  longitude = Number(req.body.location[0]);
+  latitude = Number(req.body.location[1]);
+  dist = Number(req.body.distance) || 5000;
+
+  User.find({
+    artist: true,
+    live: true,
+    location: {
+      $nearSphere: {
+        $geometry: {
+          type: "Point",
+          coordinates: [longitude, latitude]
+        },
+        $maxDistance: dist
+      }
+    }
+  }, function(err, liveArtists) {
+    if (err) { console.log('Artists/LIVE ERR', err); return; }
+    res.status(200).send(liveArtists);
+  });
+});
+
 module.exports = ArtistsAPI;
