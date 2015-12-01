@@ -38,7 +38,7 @@ var userSchema = new Schema({
   image: String,
   email: String,
   twitter: String,
-  artist: Boolean,
+  artist: { type: Boolean, default: false },
   artist_info: artistSchema,
   live: { type: Boolean, default: false },
   location: {
