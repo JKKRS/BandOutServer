@@ -2,13 +2,16 @@ var request    = require('supertest-as-promised');
 var routes     = require(__server + '/index.js');
 var UsersAPI   = require(__server + '/apis/users-api');
 var ArtistsAPI = require(__server + '/apis/artists-api');
+var EventsAPI  = require(__server + '/apis/events-api');
 var db         = require(__server + '/database/config');
 var userModel  = require(__server + '/database/models/user');
+var liveModel  = require(__server + '/database/models/live');
 var underscore = require('underscore');
 
 var app = TestHelper.createApp();
 app.use('/apis/users', UsersAPI);
 app.use('/apis/artists', ArtistsAPI);
+app.use('/apis/events', EventsAPI);
 app.use('/', routes);
 app.testReady();
 
@@ -78,8 +81,8 @@ var user3 = User("789", "a guy", "http://www.google.com/imageurl", "sschwa12@gma
 var user4 = User("34i576", "me", "http://www.google.com/imageurl", "sschwa12@gmail.com", "@scott", true);
 var venue1 = Venue('Citi Field', 'Queens', 'USA', 1235, 12322);
 var venue2 = Venue('Jones Beach', 'Wantagh', 'USA', 098244, 777655);
-var event1 = Event(1, 'Awesome fest 2k15', date, 'An awesome festival', venue1);
-var event2 = Event(2, 'Rock Fest 2k15', date, 'A Rockin festival', venue2);
+var event1 = Event(13579, 'Awesome fest 2k15', date, 'An awesome festival', venue1);
+var event2 = Event(246810, 'Rock Fest 2k15', date, 'A Rockin festival', venue2);
 var eventsArray = [event1, event2];
 var artist1 = Artist(user3, eventsArray, 'http://linktopaypal');
 var artist2 = Artist(user4, event2, 'http://google.com');
@@ -269,7 +272,6 @@ describe("The Server", function() {
           expect(returnedArtist.twitter).to.equal(artist1.twitter);
           expect(returnedArtist.artist).to.equal(artist1.artist);
           expect(returnedArtist.artist_info).to.not.be.undefined;
-          console.log('returned artist', returnedArtist);
           expect(returnedArtist.artist_info.upcoming_events.length).to.equal(2);
           // TODO CHECK VENUE ITEMS MORE IN DEPTH WITH SUB DOCUMENT METHODS
           // expect(returnedArtist.artist_info.upcoming_events[0].venue[0]).to.deep.equal(artist1.artist_info.upcoming_events[0].venue);
@@ -289,7 +291,7 @@ describe("The Server", function() {
         .expect(201, done);
     });
 
-    it ("gets all artists from the database", function(done) {
+    it("gets all artists from the database", function(done) {
       return request(app)
         .post('/apis/artists')
         .send(artist1)
@@ -399,4 +401,78 @@ describe("The Server", function() {
     });
 
   });
+
+  describe("Events API", function() {
+
+    beforeEach(function (done) {
+      liveModel.remove({}, function(err, rmd) {} )
+      .then(done());
+      // .catch(function(err) { done(err) })
+    });
+
+    it("makes a get request to the events api", function(done) {
+      return request(app)
+        .get('/apis/events')
+        .expect(200)
+        .then(function() {
+          done();
+        })
+        .catch(function(err) {
+          done(err);
+        });
+    })
+
+    it("posts to the API and returns all live events", function(done) {
+      return request(app)
+      .post('/apis/events')
+      .send(event1)
+      .expect(201)
+      .then(function(response) {
+        return request(app)
+        .post('/apis/events')
+        .send(event2)
+        .expect(201)
+        .then(function(response) {
+          return request(app)
+          .get('/apis/events')
+          .expect(200)
+          .then(function(response) {
+            expect(response.body).to.not.be.empty;
+            expect(response.body[0].id).to.equal(event1.id);
+            expect(response.body[1].id).to.equal(event2.id);
+            done();
+          });
+        });
+      })
+      .catch(function(err) {
+        done(err);
+      });
+
+    });
+
+    it("adds an attendee to the event", function(done) {
+      return request(app)
+      .post('/apis/events/' + event1.id)
+      .send(user1)
+      .expect(201)
+      .then(function(response) {
+        return request(app)
+        .get('/apis/events/' + event1.id)
+        .expect(200)
+        .then(function(response) {
+          expect(response.body.attendees).to.not.be.empty;
+          expect(response.body.attendees).to.be.instanceof(Array);
+          expect(response.body.attendees).to.have.length(1);
+          expect(response.body.attendees[0]).to.have.all.keys(Object.keys(user1));
+          expect(response.body.attendees[0]).to.have.property('fbid', user1.fbid);
+          done();
+        })
+      })
+      .catch(function(err) {
+        done(err);
+      });
+    });
+
+  });
+
 });

@@ -5,11 +5,9 @@ var User    = require('../database/models/user');
 var ArtistsAPI = express.Router();
 
 ArtistsAPI.post('/', function(req, res) {
-  // console.log('line8', req.body);
   var newArtist = new User(req.body);
   newArtist.save(function(err, artist) {
     if (err) { return err; }
-      // console.log('artist saved:', artist);
       res.status(201).send(artist);
   });
 });
