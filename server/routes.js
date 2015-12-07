@@ -7,12 +7,14 @@ var artists       = require('./routes/artist_faked');
 var routes        = express.Router();
 var userRouter    = require('./apis/users-api');
 var artistsRouter = require('./apis/artists-api');
+var eventsRouter  = require('./apis/events-api');
 var assetFolder   = Path.resolve(__dirname, '../client/');
 
 module.exports = function(app, jwtAuth) {
   app.use(jwtAuth);
   app.use('/apis/users', userRouter);
   app.use('/apis/artists', artistsRouter);
+  app.use('/apis/events', eventsRouter);
 
   // TEMPORARY
   app.get('/artists', artists.findAll);
