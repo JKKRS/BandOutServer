@@ -473,6 +473,30 @@ describe("The Server", function() {
       });
     });
 
+    it("removes an event", function(done) {
+      return request(app)
+        .post('/apis/events/' + event1.id)
+        .send(user1)
+        .expect(201)
+        .then(function(response, err) {
+          return request(app)
+          .del('/apis/events/' + event1.id)
+          .expect(200)
+          .then(function(response) {
+            return request(app)
+            .get('/apis/events/' + event1.id)
+            .expect(200)
+            .then(function(res) {
+              expect(res.body).to.be.empty;
+              done();
+            });
+          });
+        })
+        .catch(function(err) {
+          done(err);
+        });
+    });
+
   });
 
 });
