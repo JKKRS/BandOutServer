@@ -8,7 +8,7 @@ var routes        = express.Router();
 var userRouter    = require('./apis/users-api');
 var artistsRouter = require('./apis/artists-api');
 var eventsRouter  = require('./apis/events-api');
-var assetFolder   = Path.resolve(__dirname, '../client/');
+var assetFolder   = Path.resolve(__dirname, './client/');
 
 module.exports = function(app, jwtAuth) {
   app.use('/apis/users', jwtAuth, userRouter);
@@ -25,6 +25,6 @@ module.exports = function(app, jwtAuth) {
   // NOTE: Make sure this route is always LAST.
   app.get('/*', function(req, res){
     // res.status(404).send();
-    res.sendFile( assetFolder + 'www/index.html' );
+    res.sendFile( assetFolder + '/www/index.html' );
   });
 };
