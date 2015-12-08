@@ -24,7 +24,7 @@ module.exports = function(app, jwtAuth) {
   // This is for supporting browser history pushstate.
   // NOTE: Make sure this route is always LAST.
   app.get('/*', function(req, res){
-    res.status(404).send();
+    // res.status(404).send();
     res.sendFile( assetFolder + '/www/index.html' );
   });
 };
