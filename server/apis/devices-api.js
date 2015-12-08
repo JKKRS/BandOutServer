@@ -24,7 +24,7 @@ DeviceAPI.get('/', function(req, res) {
 DeviceAPI.get('/:id', function(req, res) {
   var id = req.params.id;
   Device.findOne({ device_id : id }, function(err, dev) {
-    if (err) { console.log('UsersAPI ERR', err); return; }
+    if (err) { console.log('DevicesAPI ERR', err); return; }
     if (dev === null) {
       dev = { noDevice: true };
     }
