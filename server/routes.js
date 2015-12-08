@@ -8,12 +8,14 @@ var routes        = express.Router();
 var userRouter    = require('./apis/users-api');
 var artistsRouter = require('./apis/artists-api');
 var eventsRouter  = require('./apis/events-api');
+var devicesRouter = require('./apis/devices-api');
 var assetFolder   = Path.resolve(__dirname, './client/');
 
 module.exports = function(app, jwtAuth) {
   app.use('/apis/users', jwtAuth, userRouter);
   app.use('/apis/artists', jwtAuth, artistsRouter);
   app.use('/apis/events', jwtAuth, eventsRouter);
+  app.use('/apis/devices', jwtAuth, devicesRouter);
 
   // TEMPORARY
   app.get('/artists', jwtAuth, artists.findAll);
