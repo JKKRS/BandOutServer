@@ -12,12 +12,12 @@ var assetFolder   = Path.resolve(__dirname, '../client/');
 
 module.exports = function(app, jwtAuth) {
   app.use(jwtAuth);
-  app.use('/apis/users', userRouter);
-  app.use('/apis/artists', artistsRouter);
-  app.use('/apis/events', eventsRouter);
+  app.use('/apis/users', jwtAuth, userRouter);
+  app.use('/apis/artists', jwtAuth, artistsRouter);
+  app.use('/apis/events', jwtAuth, eventsRouter);
 
   // TEMPORARY
-  app.get('/artists', artists.findAll);
+  app.get('/artists', jwtAuth, artists.findAll);
   app.get('/artists/:id', artists.findById);
   app.get('/events', artists.findAllEvents);
 
