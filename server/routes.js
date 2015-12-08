@@ -1,7 +1,5 @@
 var express       = require('express');
 var Path          = require('path');
-// TEMPORARY
-var artists       = require('./routes/artist_faked');
 
 // Routers
 var routes        = express.Router();
@@ -16,11 +14,6 @@ module.exports = function(app, jwtAuth) {
   app.use('/apis/artists', jwtAuth, artistsRouter);
   app.use('/apis/events', jwtAuth, eventsRouter);
   app.use('/apis/devices', jwtAuth, devicesRouter);
-
-  // TEMPORARY
-  app.get('/artists', jwtAuth, artists.findAll);
-  app.get('/artists/:id', jwtAuth, artists.findById);
-  app.get('/events', jwtAuth, artists.findAllEvents);
 
   // The Catch-all Route
   // This is for supporting browser history pushstate.
