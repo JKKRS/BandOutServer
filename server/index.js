@@ -3,7 +3,6 @@ var Path     = require('path');
 var cors     = require('cors');
 var jwt      = require('express-jwt');
 var routes   = express.Router();
-var sessions = require('./routes/sessions');
 var morgan   = require('morgan');
 
 if(process.env.NODE_ENV !== 'test') {
