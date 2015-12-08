@@ -38,6 +38,7 @@ UsersAPI.put('/:id', function(req, res) {
 
     // only send push notifications if artist is live and location coordinates exists
     if (req.body.live && req.body['location.coordinates']) {
+      console.log('calling push.notifyUsers');
       push.notifyUsers(id, req.body);
     }
 
