@@ -48,5 +48,14 @@ EventsAPI.delete('/:eventID', function(req, res) {
   });
 });
 
+EventsAPI.delete('/:eventID/:attendeeFBID', function(req, res) {
+  var eventID = req.params.eventID;
+  var attendeeFBID = req.params.attendeeFBID;
+  LiveEvent.update({ id : eventID }, { $pull: { attendees : { fbid : attendeeFBID } } }, function(err, response) {
+    if (err) { console.log('Attendee Removal ERR', err); return; }
+    res.status(200).send(response);
+  });
+});
+
 
 module.exports = EventsAPI;

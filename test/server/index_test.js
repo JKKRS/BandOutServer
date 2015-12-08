@@ -390,8 +390,7 @@ describe("The Server", function() {
             .send(artist2)
             .expect(202)
             .then(function(response) {
-              // expect(response.body.ok).to.equal(1);
-              // expect(response.body.nModified).to.equal(1);
+              expect(response.body).to.not.be.empty;
               done();
             });
         })
@@ -399,7 +398,6 @@ describe("The Server", function() {
           done(err);
         });
     });
-
   });
 
   describe("Events API", function() {
@@ -497,6 +495,28 @@ describe("The Server", function() {
         });
     });
 
+    it("removes an attendee", function(done) {
+      return request(app)
+      .post('/apis/events/' + event1.id)
+      .send(user1)
+      .expect(201)
+      .then(function(res) {
+        return request(app)
+        .del('/apis/events/' + event1.id + '/' + user1.fbid)
+        .expect(200)
+        .then(function(response) {
+          return request(app)
+          .get('/apis/events/' + event1.id)
+          .expect(200)
+          .then(function(res) {
+            expect(res.body.attendees).to.be.empty;
+            done();
+          });
+        });
+      })
+      .catch(function(err) {
+        done(err)
+      });
+    });
   });
-
 });
