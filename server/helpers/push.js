@@ -33,8 +33,7 @@ module.exports = {
         devicesToNotify = devicesToNotify.map(function(val) {
           return val.device_id;
         });
-        console.log('devices to notify', devicesToNotify);
-        var title = (artist.artist_info.artist_name || artist.name) + 'is Live!';
+        var title = (artist.artist_info.artist_name || artist.name) + ' is Live!';
         var body = 'Show your support, be a part of the experience.';
         gcmNotify(title, body, artist.artist_info, devicesToNotify);
       });
