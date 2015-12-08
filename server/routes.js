@@ -11,7 +11,7 @@ var eventsRouter  = require('./apis/events-api');
 var assetFolder   = Path.resolve(__dirname, '../client/');
 
 module.exports = function(app, jwtAuth) {
-  app.use(jwtAuth);
+  // app.use(jwtAuth);
   app.use('/apis/users', jwtAuth, userRouter);
   app.use('/apis/artists', jwtAuth, artistsRouter);
   app.use('/apis/events', jwtAuth, eventsRouter);
