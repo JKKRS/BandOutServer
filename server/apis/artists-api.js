@@ -1,6 +1,7 @@
 var express = require('express');
 var mongoose = require('../database/config');
 var User    = require('../database/models/user');
+var push = require('../helpers/push');
 
 var ArtistsAPI = express.Router();
 
@@ -31,6 +32,12 @@ ArtistsAPI.put('/:id', function(req, res) {
   var id = req.params.id;
   User.update( { fbid : id }, { $set : req.body }, null, function(err, msg) {
     if (err) { return err; }
+
+    // only send push notifications if artist is live and location coordinates exists
+    if (req.body.live && req.body['location.coordinates']) {
+      push.notifyUsers(id, req.body);
+    }
+
     res.status(202).send(msg);
   });
 });
