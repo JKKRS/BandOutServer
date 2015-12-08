@@ -11,15 +11,14 @@ var eventsRouter  = require('./apis/events-api');
 var assetFolder   = Path.resolve(__dirname, '../client/');
 
 module.exports = function(app, jwtAuth) {
-  // app.use(jwtAuth);
   app.use('/apis/users', jwtAuth, userRouter);
   app.use('/apis/artists', jwtAuth, artistsRouter);
   app.use('/apis/events', jwtAuth, eventsRouter);
 
   // TEMPORARY
   app.get('/artists', jwtAuth, artists.findAll);
-  app.get('/artists/:id', artists.findById);
-  app.get('/events', artists.findAllEvents);
+  app.get('/artists/:id', jwtAuth, artists.findById);
+  app.get('/events', jwtAuth, artists.findAllEvents);
 
   // The Catch-all Route
   // This is for supporting browser history pushstate.
