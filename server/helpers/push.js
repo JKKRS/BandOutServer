@@ -31,7 +31,7 @@ module.exports = {
       }, 'device_id', function(err, devicesToNotify) {
         if (err) { console.log('notifyUsers deviceFind ERR', err); return err; }
         devicesToNotify = devicesToNotify.map(function(val) {
-          return val.devices_id;
+          return val.device_id;
         });
         console.log('devices to notify', devicesToNotify);
         var title = (artist.artist_info.artist_name || artist.name) + 'is Live!';
