@@ -66,4 +66,12 @@ ArtistsAPI.post('/live', function(req, res) {
   });
 });
 
+// Get all live artists
+ArtistsAPI.get('/live', function(req, res) {
+  User.find( { artist : true, live : true }, function(err, artists) {
+    if (err) { console.log('Artists/Live GET Error', err); return; }
+    res.status(200).send(artists);
+  });
+});
+
 module.exports = ArtistsAPI;

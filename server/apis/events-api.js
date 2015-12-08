@@ -48,6 +48,7 @@ EventsAPI.delete('/:eventID', function(req, res) {
   });
 });
 
+// Remove an attendee from a specific event
 EventsAPI.delete('/:eventID/:attendeeFBID', function(req, res) {
   var eventID = req.params.eventID;
   var attendeeFBID = req.params.attendeeFBID;
