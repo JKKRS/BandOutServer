@@ -28,9 +28,10 @@ module.exports = {
             $maxDistance: 500
           }
         }
-      }, 'device_id', function(err, devicesToNotify) {
+      })
+      .select('device_id')
+      .exec(function(err, devicesToNotify) {
         if (err) { console.log('notifyUsers deviceFind ERR', err); return err; }
-        console.log('Devices List:', devicesToNotify);
         var title = (artist.artist_info.artist_name || artist.name) + 'is Live!';
         var body = 'Show your support, be a part of the experience.';
         gcmNotify(title, body, artist.artist_info, devicesToNotify);
