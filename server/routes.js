@@ -59,12 +59,16 @@ module.exports = function(app, jwtAuth) {
   app.get('/assets/img/James_Hicks_2.jpg', function(req, res) {
     res.sendFile(assetFolder + '/www/assets/img/James_Hicks_2.jpg');
   });
-  app.get('/assets/img/ser02.png', function(req, res) {
-    res.sendFile(assetFolder + '/www/assets/img/ser02.png');
+  app.get('/assets/img/homePage.png', function(req, res) {
+    res.sendFile(assetFolder + '/www/assets/img/homePage.png');
   });
-  app.get('/assets/img/ser01.png', function(req, res) {
-    res.sendFile(assetFolder + '/www/assets/img/ser01.png');
+  app.get('/assets/img/artistMap.png', function(req, res) {
+    res.sendFile(assetFolder + '/www/assets/img/artistMap.png');
   });
+  app.get('/assets/img/artistView.png', function(req, res) {
+    res.sendFile(assetFolder + '/www/assets/img/artistView.png');
+  });
+
 
 
 
