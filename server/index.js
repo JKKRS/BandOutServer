@@ -7,9 +7,14 @@ var morgan   = require('morgan');
 
 if(process.env.NODE_ENV !== 'test') {
 
+  var auth0 =  {
+    secret : process.env.AUTH0_CLIENT_SECRET || require('../.env').AUTH0_CLIENT_SECRET,
+    key : process.env.AUTH0_CLIENT_ID || require('../.env').AUTH0_CLIENT_ID
+  }
+
   var authenticate = jwt({
-    secret: new Buffer(process.env.AUTH0_CLIENT_SECRET, 'base64'),
-    audience: process.env.AUTH0_CLIENT_ID
+    secret: new Buffer(auth0.secret, 'base64'),
+    audience: auth0.key
   });
 
   // We're in development or production mode;
