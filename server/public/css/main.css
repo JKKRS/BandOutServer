@@ -19,15 +19,15 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 300;
 }
 h1 {
-  color: #431c5d;
+  color: #ff4c0a;
   font-size: 40px;
 }
 h3 {
-  color: #431c5d;
+  color: #ff4c0a;
   font-weight: 400;
 }
 h4 {
-  color: #431c5d;
+  color: #ff4c0a;
   font-weight: 400;
   font-size: 20px;
 }
@@ -57,7 +57,7 @@ a:hover, a:focus {
 }
 
 .header-wrap {
-  background-color: #ff4c0a;
+  background-color: #431c5d;
   min-height: 650px;
   padding-top: 30px;
 }
@@ -105,12 +105,6 @@ footer {
 .footer-text {
   margin-top: 80px;
   margin-bottom: 20px;
-}
-
-.made-in {
-  margin-top: 30px;
-  margin-bottom: 30px;
-  text-align: left;
 }
 
 .github {
