@@ -27,14 +27,10 @@ if(process.env.NODE_ENV !== 'test') {
   // Parse incoming request bodies as JSON
   app.use(require('body-parser').json());
 
-  // app.use(function(req, res, next) {
-  //   res.header("Access-Control-Allow-Origin", "*");
-  //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //   next();
-  // });
+  // Set Response Headers
   app.use(cors());
 
+  // Set up routing
   require('./routes.js')(app, authenticate);
 
   // Start the server!
