@@ -110,4 +110,12 @@ footer {
 .made-in {
   margin-top: 30px;
   margin-bottom: 30px;
+  text-align: left;
+}
+
+.github {
+  position: fixed;
+  top: 0;
+  right: 0;
+  border: 0;
 }
